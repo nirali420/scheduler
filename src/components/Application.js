@@ -2,19 +2,41 @@ import "components/Application.scss";
 import DayList from "./DayList.js";
 import React, { useState, useEffect } from "react";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors.js";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay
+} from "../helpers/selectors.js";
+
 const axios = require("axios").default;
 
 // Applicaiton function
 export default function Application(props) {
-  const [state, setState] = useState({
+  const [state, setState, cancelInterview] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
+  const setDay = day =>
+    setState({
+      ...state,
+      appointments
+    });
+  const getInterviewerForTheDay = getInterviewersForDay(state, state.day);
+  const appointments = getAppointmentsForDay(state, state.day);
 
-  const setDay = day => setState({ ...state, day });
+  //create & save data
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+  }
 
   useEffect(() => {
     let promiseDays = axios.get(`http://localhost:8001/api/days`);
@@ -30,8 +52,6 @@ export default function Application(props) {
     });
   }, []);
 
-  const appointments = getAppointmentsForDay(state, state.day);
-  console.log("the appointment", appointments);
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
     return (
@@ -40,6 +60,9 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        getInterviewerForTheDay={getInterviewerForTheDay}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -63,7 +86,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
-        <Appointment key="last" time="5pm" />
+        <Appointment id="last" time="5pm" />
       </section>
     </main>
   );

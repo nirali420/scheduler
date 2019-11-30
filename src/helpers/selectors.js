@@ -1,4 +1,3 @@
-// Returns the Appointments by given day
 export function getAppointmentsForDay(state, day) {
   let returnDay = [];
   for (let eachDay of state.days) {
@@ -12,9 +11,8 @@ export function getAppointmentsForDay(state, day) {
   return returnDay;
 }
 
-// Returns the Appointments by given day
 export function getInterview(state, interview) {
-  if (interview === null) {
+  if (!interview) {
     return null;
   }
   let returnInterview = {};
@@ -25,4 +23,17 @@ export function getInterview(state, interview) {
     interviewer: interviewerDetails
   };
   return returnInterview;
+}
+
+export function getInterviewersForDay(state, day) {
+  let returnDay = [];
+  for (let eachDay of state.days) {
+    if (day === eachDay.name) {
+      const interviewers = eachDay.interviewers;
+      for (let eachAppointment of interviewers) {
+        returnDay.push(state.interviewers[eachAppointment]);
+      }
+    }
+  }
+  return returnDay;
 }
