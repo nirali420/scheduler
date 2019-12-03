@@ -28,9 +28,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-
     transition(SAVING);
-
     props
       .bookInterview(props.id, interview)
       .then(() => {
@@ -52,17 +50,15 @@ export default function Appointment(props) {
         transition(ERROR_DELETE, true);
       });
   }
-
   return (
-    <article className="appointment">
+    <article data-testid="appointment" className="appointment">
       <Header time={props.time} />
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-
       {mode === SHOW && (
         <Show
           student={props.interview.student}
-          interviewer={props.interview.interviewer.name}
+          interviewers={props.interview.interviewer.name}
           onDelete={() => transition(CONFIRM)}
           onEdit={() => transition(EDIT)}
         />
@@ -71,7 +67,7 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
-          onCancel={() => back()}
+          onCancel={() => transition(EMPTY)}
           onSave={save}
         />
       )}
@@ -79,15 +75,15 @@ export default function Appointment(props) {
       {mode === EDIT && (
         <Form
           name={props.interview.student}
-          interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
-          onCancel={() => back()}
+          interviewers={props.interviewers}
+          onCancel={() => transition(SHOW)}
           onSave={save}
         />
       )}
 
-      {mode === SAVING && <Status message="Saving..." />}
-      {mode === DELETING && <Status message="Deleting..." />}
+      {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
       {mode === CONFIRM && (
         <Confirm
           message="Are you sure you would like to Delete?"
@@ -95,15 +91,17 @@ export default function Appointment(props) {
           onConfirm={deleteInterview}
         />
       )}
+
       {mode === ERROR_SAVE && (
         <Error
-          message="There was an error while saving"
+          message="There was an error while saving."
           onClose={() => back()}
         />
       )}
+
       {mode === ERROR_DELETE && (
         <Error
-          message="There was an error while deleting"
+          message="There was an error while deleting."
           onClose={() => back()}
         />
       )}

@@ -11,8 +11,6 @@ import useApplicationData from "../hooks/useApplicationData";
 
 const axios = require("axios").default;
 
-// Applicaiton function
-
 export default function Application(props) {
   const {
     state,
@@ -30,7 +28,7 @@ export default function Application(props) {
           id={appointment.id}
           time={appointment.time}
           interview={getInterview(state, appointment.interview)}
-          interviewers={interviewers || []}
+          interviewers={interviewers}
           bookInterview={bookInterview}
           cancelInterview={cancelInterview}
         />
