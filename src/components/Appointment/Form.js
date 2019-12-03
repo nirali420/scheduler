@@ -15,7 +15,6 @@ export default function Form(props) {
     reset();
     props.onCancel();
   };
-
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -34,7 +33,7 @@ export default function Form(props) {
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={interviewer}
+          interviewer={interviewer}
           setInterviewer={setInterviewer}
         />
       </section>

@@ -33,16 +33,12 @@ export default function Appointment(props) {
 
     props
       .bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch(error => transition(ERROR_SAVE, true));
-  }
-
-  function deleteAppointment() {
-    transition(DELETING, true);
-    props
-      .cancelInterview(props.id)
-      .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true));
+      .then(() => {
+        transition(SHOW);
+      })
+      .catch(() => {
+        transition(ERROR_SAVE, true);
+      });
   }
 
   function deleteInterview() {
@@ -71,29 +67,32 @@ export default function Appointment(props) {
           onEdit={() => transition(EDIT)}
         />
       )}
-      {mode === SAVING && <Status message={"Saving..."} />}
+
       {mode === CREATE && (
         <Form
-          interviewers={props.getInterviewerForTheDay}
+          interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
         />
       )}
 
-      {mode === CONFIRM && (
-        <Confirm
-          message={"Do you want to delete the appointment?"}
-          onConfirm={() => deleteAppointment()}
-          onCancel={() => transition(SHOW)}
-        />
-      )}
       {mode === EDIT && (
         <Form
           name={props.interview.student}
-          interviewers={props.getInterviewerForTheDay}
+          interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
           onCancel={() => back()}
           onSave={save}
+        />
+      )}
+
+      {mode === SAVING && <Status message="Saving..." />}
+      {mode === DELETING && <Status message="Deleting..." />}
+      {mode === CONFIRM && (
+        <Confirm
+          message="Are you sure you would like to Delete?"
+          onCancel={() => transition(SHOW)}
+          onConfirm={deleteInterview}
         />
       )}
       {mode === ERROR_SAVE && (
@@ -108,7 +107,6 @@ export default function Appointment(props) {
           onClose={() => back()}
         />
       )}
-      {mode === DELETING && <Status message={"Deleting..."} />}
     </article>
   );
 }
