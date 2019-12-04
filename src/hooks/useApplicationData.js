@@ -1,5 +1,10 @@
 import React, { useEffect, useReducer } from "react";
-const axios = require("axios").default;
+import axios from "axios";
+import reducer, {
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "reducers/application";
 
 export default function useApplicationData() {
   const SET_DAY = "SET_DAY";
