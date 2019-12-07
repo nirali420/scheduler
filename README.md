@@ -6,37 +6,37 @@
 
 Landing page, with up to five appointments per day and dynamic counter for the remaining spots.
 
-!["screenshot of homepage"](https://github.com/nirali420/scheduler/blob/master/docs/Delete-message.png)
+!["screenshot of homepage"](https://github.com/nirali420/scheduler/blob/master/docs/the-app.png)
 
 ## Responsive design
 
 The design is responsive for different screen sizes
 
-!["screenshot of responsive design"]
+!["screenshot of responsive design"](https://github.com/nirali420/scheduler/blob/master/docs/Responsive.png)
 
 ## Create new Appointment
 
 Allows student to create appointment, by entering the name and selecting the interviewer.
 
-!["screenshot of creating appointment"]
+!["screenshot of creating appointment"](https://github.com/nirali420/scheduler/blob/master/docs/Schedule-interview.png)
 
 ## Warnings
 
 Warns user if name field was left empty.
 
-!["screenshot of warning message"]
+!["screenshot of warning message"](https://github.com/nirali420/scheduler/blob/master/docs/check-message.png)
 
 ## Warning message on delete.
 
 Displays confirmation message before deleting.
 
-!["screenshot of delete message"]
+!["screenshot of delete message"](https://github.com/nirali420/scheduler/blob/master/docs/Delete-message.png)
 
 ## Transition spinner
 
 Spinner animation while saving or deleting message.
 
-!["screenshot of delete spinner"]
+!["screenshot of delete spinner"](https://github.com/nirali420/scheduler/blob/master/docs/Delete-transition.png)
 
 ## Functional Requirements
 
