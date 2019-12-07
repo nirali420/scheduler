@@ -6,7 +6,7 @@
 
 Landing page, with up to five appointments per day and dynamic counter for the remaining spots.
 
-!["screenshot of homepage"]
+!["screenshot of homepage"](https://github.com/nirali420/scheduler/blob/master/docs/Delete-message.png)
 
 ## Responsive design
 
